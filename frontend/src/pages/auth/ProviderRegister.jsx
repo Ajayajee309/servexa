@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { User, Mail, Lock, Phone, MapPin, Loader2, ArrowRight } from 'lucide-react';
+import { User, Mail, Lock, Phone, MapPin, Loader2, ArrowRight, Briefcase } from 'lucide-react';
 import ImageUpload from '../../components/common/ImageUpload';
 
-const Register = () => {
+const ProviderRegister = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -12,7 +12,8 @@ const Register = () => {
     confirmPassword: '',
     phone: '',
     address: '',
-    role: 'CUSTOMER',
+    role: 'PROVIDER',
+    serviceCategory: '',
     profileImageUrl: ''
   });
   const [error, setError] = useState('');
@@ -37,6 +38,11 @@ const Register = () => {
       return;
     }
 
+    if (!formData.serviceCategory) {
+      setError("Please select a service category");
+      return;
+    }
+
     setIsLoading(true);
 
     const result = await register({
@@ -45,12 +51,13 @@ const Register = () => {
       password: formData.password,
       phone: formData.phone,
       address: formData.address,
-      role: 'CUSTOMER',
+      role: 'PROVIDER',
+      serviceCategory: formData.serviceCategory,
       profileImageUrl: formData.profileImageUrl
     });
     
     if (result.success) {
-      navigate('/login');
+      navigate('/provider/login');
     } else {
       setError(result.message);
     }
@@ -62,11 +69,11 @@ const Register = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-          Create an account
+          Become a Provider
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-          Already have an account?{' '}
-          <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500 transition-colors">
+          Already have a provider account?{' '}
+          <Link to="/provider/login" className="font-medium text-blue-600 hover:text-blue-500 transition-colors">
             Sign in
           </Link>
         </p>
@@ -182,6 +189,32 @@ const Register = () => {
                 </div>
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Service Category
+                </label>
+                <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Briefcase className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <select
+                    name="serviceCategory"
+                    value={formData.serviceCategory}
+                    onChange={handleChange}
+                    required
+                    className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg py-3"
+                  >
+                    <option value="">Select a Category</option>
+                    <option value="Appliance Repair">Appliance Repair</option>
+                    <option value="Plumbing">Plumbing</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Cleaning">Cleaning</option>
+                    <option value="Carpentry">Carpentry</option>
+                    <option value="Painting">Painting</option>
+                    <option value="Pest Control">Pest Control</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
             <ImageUpload 
@@ -192,7 +225,7 @@ const Register = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Address
+                Shop Address / Location
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 pt-3 pointer-events-none">
@@ -220,7 +253,7 @@ const Register = () => {
                   <Loader2 className="animate-spin h-5 w-5" />
                 ) : (
                   <>
-                    Create Account
+                    Create Provider Account
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
@@ -233,4 +266,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ProviderRegister;

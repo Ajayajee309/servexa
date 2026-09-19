@@ -54,7 +54,10 @@ const Navbar = () => {
                 </button>
               </div>
             ) : (
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 items-center">
+                <Link to="/provider/register" className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 transition-colors hidden lg:block">
+                  Become a Provider
+                </Link>
                 <Link to="/login" className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                   Login
                 </Link>
@@ -86,6 +89,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
+                <Link to="/provider/register" className="block px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800">Become a Provider</Link>
                 <Link to="/login" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800">Login</Link>
                 <Link to="/register" className="block px-3 py-2 rounded-md text-base font-medium text-blue-600 hover:bg-blue-50 dark:hover:bg-gray-800">Register</Link>
               </>

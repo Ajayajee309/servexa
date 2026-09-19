@@ -1,6 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+import ProviderLogin from './pages/auth/ProviderLogin';
+import ProviderRegister from './pages/auth/ProviderRegister';
+import AdminLogin from './pages/auth/AdminLogin';
 import Home from './pages/customer/Home';
 import ProvidersList from './pages/customer/ProvidersList';
 import ProviderProfile from './pages/customer/ProviderProfile';
@@ -22,6 +25,9 @@ function App() {
         <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/provider/login" element={<ProviderLogin />} />
+      <Route path="/provider/register" element={<ProviderRegister />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/services" element={<Services />} />
       <Route path="/providers" element={<ProvidersList />} />
       <Route path="/providers/:id" element={<ProviderProfile />} />
